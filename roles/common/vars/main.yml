@@ -1,0 +1,4 @@
+---
+# vars file for common
+epelrepo: http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+ntpconfurl: https://raw.githubusercontent.com/shayharush/opsschol-ansible/master/session1/files/ntp.conf

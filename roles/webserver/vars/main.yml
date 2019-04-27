@@ -1,0 +1,6 @@
+---
+indexhtmlurl: https://raw.githubusercontent.com/shayharush/opsschol-ansible/master/session1/files/index.html
+indexhtmldest: /var/www/html/index.html
+aliasrecord: '172.16.1.84 node1.opsschool.com'
+verifyurl: http://localhost/index.html
+verifytext: "Ansible test page"

@@ -1,0 +1,28 @@
+- name: add epel repo, install, configure and restart ntp
+  hosts: web
+  remote_user: centos
+  become: yes
+
+  tasks:
+  - name: Add EPEL repo
+    yum:
+      name: http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+      state: present
+
+  - name: Make ntp package installed
+    yum:
+      name: ntp
+      state: present
+        
+  - name: Add ntp.conf
+    get_url:
+      url: https://raw.githubusercontent.com/shayharush/opsschol-ansible/master/session1/files/ntp.conf
+      dest: /etc/ntp.conf
+      force: yes
+    notify: restart ntp
+
+  handlers:
+  - name: restart ntp
+    service:
+      name: ntpd
+      state: restarted

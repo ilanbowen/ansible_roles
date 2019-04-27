@@ -1,0 +1,11 @@
+---
+# tasks file for common
+- name: Add EPEL repo
+  yum:
+    name: "{{ epelrepo }}"
+    state: present
+
+- include: ntp.yml
+
+
+

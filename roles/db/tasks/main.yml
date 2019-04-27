@@ -1,0 +1,25 @@
+---
+- name: add mysql yum repo
+  yum:
+    name: "{{ mysqlrepo }}"
+    state: present
+
+- name: install mysql-server
+  yum:
+    name: mysql-server
+    state: present
+
+- name: disable selinux
+  selinux:
+    state: disabled
+
+- name: Add innodb_buffer_pool_size to my.cnf
+  blockinfile:
+    path: /etc/my.cnf
+    block: |
+      innodb_buffer_pool_size={{(ansible_memtotal_mb * 0.6)|round|int}}M
+
+- name: Start mysql service
+  systemd:
+    name: mysqld
+    state: started

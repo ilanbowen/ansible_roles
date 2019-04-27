@@ -1,0 +1,38 @@
+---
+
+- name: installing a webserver 
+  hosts: web
+  remote_user: centos
+  become: yes
+
+  tasks:
+
+  - name: Install httpd package
+    yum:
+      name: httpd
+      state: present
+
+  - name: start httpd
+    service:
+      name: httpd
+      state: started
+      enabled: yes
+
+  - name: Add index.html to /var/www/html 
+    get_url:
+      url: https://raw.githubusercontent.com/shayharush/opsschol-ansible/master/session1/files/index.html
+      dest: /var/www/html/index.html
+      force: yes
+
+  - name: On your ansible server node create a new host (/etc/hosts) record with node1.opsschool.com pointing to node1 ip address    
+    lineinfile:
+      path: /etc/hosts
+      line: '172.16.1.84 node1.opsschool.com'
+      create: yes
+
+  - name: Verify that server responds to http request and returns status 200
+    uri:
+      url: http://localhost/index.html
+      return_content: yes
+    register: result
+    until: '"Ansible test page" in result.content'

@@ -1,0 +1,16 @@
+---
+- hosts: dbgroup
+  tasks:
+  - name: add mysql yum repo
+    yum_repository:
+      name: mysql
+      state: present
+  - name: install mysql-server
+    yum:
+      name: mysql-server
+      state: present
+  - name: disable selinux
+    selinux:
+      state: disabled
+  - name: Add to my.cnf file with 60% of your instance RAM for (innodb_buffer_pool_size)
+    

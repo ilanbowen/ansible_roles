@@ -1,0 +1,8 @@
+---
+- name: configure using common and db setup roles
+  hosts: dbgroup
+  remote_user: centos
+  become: yes
+  roles:
+     - common
+     - db

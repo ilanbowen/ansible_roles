@@ -1,0 +1,13 @@
+---
+- name: Make ntp package installed
+  yum:
+    name: ntp
+    state: present
+
+- name: Add ntp.conf
+  get_url:
+    url: "{{ ntpconfurl }}"
+    dest: /etc/ntp.conf
+    force: yes
+  notify: restart ntp
+
